@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>API Experiment</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <h2>Basic Results</h2>
+    <p>We'll try to access the Walmart API here. Printing result(s) below: </p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <!-- Example Item 1 -->
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <!-- Example Item 2 -->
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    var movieName = "mr+nobody";
+    var queryURL = "https://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=40e9cece";
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).done(function(response) {
+
+      // Chaining several jQuery methods to achieve the following:
+      var firstRowTds = $("table") // Get a reference to the table as a jQuery object
+        .children() // Get all of table's immediate children as an array
+        .eq(1) // Get element at the first index of this returned array (the <tbody>)
+        .children("tr") // Get an array of all <tr> children inside the returned <tbody>
+        .eq(0) // Get the 0th child of this returned array (the first <tr>)
+        .children("td"); // Get an array of all <td> children inside the returned <tr>
+
+      // Setting the inner text of each <td> in the firstRowTds array
+      firstRowTds.eq(0).text(response.Title);
+
+      firstRowTds.eq(1).text(response.Year);
+
+      firstRowTds.eq(2).text(response.Actors);
+    });
+
+  </script>
+</body>
+
+</html>
